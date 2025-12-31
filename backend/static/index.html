@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Analyst | AI-Powered Insights</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>CryptoAnalyst</span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="coinInput" placeholder="Enter Coin (e.g. BTC, HBAR)" value="BTC" />
+                <button id="searchBtn"><i class="fa-solid fa-search"></i> Analyze</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Loading State -->
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Analyzing market data <span id="loadingSymbol"></span>...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="hidden">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p id="errorMessage">Analysis failed</p>
+            </div>
+
+            <!-- Dashboard -->
+            <div id="dashboard" class="hidden">
+                
+                <!-- Headliner: Price & Basic Trend -->
+                <section class="headliner">
+                    <div class="coin-info">
+                        <h1 id="displaySymbol">BTC-USD</h1>
+                        <h2 id="displayPrice">$0.00</h2>
+                    </div>
+                    <div class="trend-badge" id="trendBadge">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span id="trendText">Neutral</span>
+                    </div>
+                </section>
+
+                <!-- Key Metrics Grid -->
+                <section class="grid-metrics">
+                    <!-- Support & Resistance -->
+                    <div class="card">
+                        <h3><i class="fa-solid fa-arrows-up-down"></i> key Levels</h3>
+                        <div class="metric-row">
+                            <span>Resistance</span>
+                            <span class="value" id="valRes">$0.00</span>
+                        </div>
+                        <div class="metric-row">
+                            <span>Support</span>
+                            <span class="value" id="valSup">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- RSI Indicator -->
+                    <div class="card">
+                        <h3><i class="fa-solid fa-gauge-high"></i> RSI (14)</h3>
+                        <div class="metric-big" id="rsiValue">50.00</div>
+                        <div class="metric-sub" id="rsiSignal">Neutral</div>
+                        <div class="progress-bar">
+                            <div class="fill" id="rsiFill" style="width: 50%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Volume Analysis -->
+                    <div class="card">
+                        <h3><i class="fa-solid fa-chart-simple"></i> Volume</h3>
+                        <div class="metric-row">
+                            <span>Current</span>
+                            <span class="value" id="volCur">0</span>
+                        </div>
+                        <div class="metric-row">
+                            <span>Avg (20d)</span>
+                            <span class="value" id="volAvg">0</span>
+                        </div>
+                        <div class="status-tag" id="volStatus">Normal</div>
+                    </div>
+                    
+                    <!-- Trend Details -->
+                     <div class="card">
+                        <h3><i class="fa-solid fa-microchip"></i> Trend Algo</h3>
+                         <div class="metric-row">
+                            <span>SMA 50</span>
+                            <span class="value" id="sma50">$0.00</span>
+                        </div>
+                         <div class="metric-row">
+                            <span>SMA 200</span>
+                            <span class="value" id="sma200">$0.00</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- News Feed -->
+                <section class="news-section">
+                    <h3><i class="fa-solid fa-newspaper"></i> Market Sentiment & News</h3>
+                    <div class="news-grid" id="newsGrid">
+                        <!-- News Items injected here -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

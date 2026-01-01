@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="app-container">
         <!-- Header -->
@@ -40,7 +43,7 @@
 
             <!-- Dashboard -->
             <div id="dashboard" class="hidden">
-                
+
                 <!-- Headliner: Price & Basic Trend -->
                 <section class="headliner">
                     <div class="coin-info">
@@ -91,17 +94,27 @@
                         </div>
                         <div class="status-tag" id="volStatus">Normal</div>
                     </div>
-                    
+
                     <!-- Trend Details -->
-                     <div class="card">
+                    <div class="card">
                         <h3><i class="fa-solid fa-microchip"></i> Trend Algo</h3>
-                         <div class="metric-row">
+                        <div class="metric-row">
                             <span>SMA 50</span>
                             <span class="value" id="sma50">$0.00</span>
                         </div>
-                         <div class="metric-row">
+                        <div class="metric-row">
                             <span>SMA 200</span>
                             <span class="value" id="sma200">$0.00</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NEW: Chart Section -->
+                <section class="chart-section" style="margin-bottom: 30px;">
+                    <div class="card">
+                        <h3><i class="fa-solid fa-chart-area"></i> Price History (90 Days)</h3>
+                        <div class="chart-container" style="position: relative; height:400px; width:100%">
+                            <canvas id="priceChart"></canvas>
                         </div>
                     </div>
                 </section>
@@ -118,4 +131,5 @@
     </div>
     <script src="app.js"></script>
 </body>
+
 </html>

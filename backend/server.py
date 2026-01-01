@@ -61,7 +61,10 @@ def get_analysis_data(symbol: str):
                     "sma": vol_sma,
                     "status": vol_status
                 }
-            }
+            },
+            "history": df.tail(90).reset_index().apply(
+                lambda x: {"date": x['Date'].strftime('%Y-%m-%d'), "price": x['Close']}, axis=1
+            ).tolist()
         }
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Market data error: {str(e)}")

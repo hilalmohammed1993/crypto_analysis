@@ -26,6 +26,9 @@ const els = {
     newsGrid: document.getElementById('newsGrid')
 };
 
+// Chart Global Variable
+let myChart = null;
+
 async function analyzeCoin(symbol) {
     if (!symbol) return;
 
@@ -93,6 +96,11 @@ function renderDashboard(data) {
     els.sma50.innerText = formatMoney(market.trend.sma50);
     els.sma200.innerText = formatMoney(market.trend.sma200);
 
+    // --- CHART RENDERING ---
+    if (market.history) {
+        renderChart(market.history, market.support_resistance.support, market.support_resistance.resistance);
+    }
+
     // News
     els.newsGrid.innerHTML = '';
     news.forEach(item => {
@@ -110,6 +118,84 @@ function renderDashboard(data) {
             </div>
         `;
         els.newsGrid.appendChild(card);
+    });
+}
+
+function renderChart(history, support, resistance) {
+    const ctx = document.getElementById('priceChart').getContext('2d');
+
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    const labels = history.map(h => h.date);
+    const prices = history.map(h => h.price);
+
+    // Constant lines for S/R
+    const supportLine = Array(labels.length).fill(support);
+    const resistanceLine = Array(labels.length).fill(resistance);
+
+    myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Price',
+                    data: prices,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.1,
+                    fill: {
+                        target: 'origin',
+                        above: 'rgba(59, 130, 246, 0.1)'
+                    },
+                    pointRadius: 0
+                },
+                {
+                    label: 'Resistance',
+                    data: resistanceLine,
+                    borderColor: '#ef4444',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false
+                },
+                {
+                    label: 'Support',
+                    data: supportLine,
+                    borderColor: '#10b981',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            plugins: {
+                legend: {
+                    labels: { color: '#94a3b8' }
+                }
+            },
+            scales: {
+                y: {
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8', maxTicksLimit: 10 }
+                }
+            }
+        }
     });
 }
 
